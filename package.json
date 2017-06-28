@@ -1,0 +1,36 @@
+{
+  "name": "quantified-self",
+  "version": "1.0.0",
+  "description": "mod4 javascript project",
+  "main": "server.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "mocha",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/slague/quantified-self.git"
+  },
+  "keywords": [
+    "javascript",
+    "node"
+  ],
+  "author": "Stephanie Bentley Sergey Lukyanenko",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/slague/quantified-self/issues"
+  },
+  "homepage": "https://github.com/slague/quantified-self#readme",
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "^4.15.3"
+  },
+  "devDependencies": {
+    "chai": "^4.0.2",
+    "mocha": "^3.4.2",
+    "request": "^2.81.0"
+  }
+}
