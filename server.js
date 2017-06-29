@@ -8,9 +8,9 @@ app.set('port', process.env.PORT || 3000)
 
 app.locals.title = 'Quantified Self'
 app.locals.foods = [
-  { name: 'apple', calorie_count: 50 },
-  { name: 'banana', calorie_count: 100 },
-  { name: 'carrot', calorie_count: 75 }
+  { id: 1, name: 'apple', calorieCount: 50 },
+  { id: 2, name: 'banana', calorieCount: 100 },
+  { id: 3, name: 'carrot', calorieCount: 75 }
 ]
 
 app.use(bodyParser.json())
