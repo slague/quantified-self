@@ -7,22 +7,31 @@ app.set('port', process.env.PORT || 3000)
 
 
 app.locals.title = 'Quantified Self'
-app.locals.foods = [
-  { id: 1, name: 'apple', calorieCount: 50 },
-  { id: 2, name: 'banana', calorieCount: 100 },
-  { id: 3, name: 'carrot', calorieCount: 75 }
-]
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 
+app.get('/', function(request, response){
+  response.send(app.locals.title)
+})
 
 app.get('/api/v1/foods', function(request, response) {
   var foods = app.locals.foods
 
   // if(!message){ return response.sendStatus(404) }
     response.json(foods)
+})
+
+app.get('/api/v1/foods/:id', function(request, response){
+  var id = request.params.id
+  Food.find(id)
+  .then(function(data){
+    if(data.rowCount == 0) {
+      return response.sendStatus(404)
+    }
+    response.json(data.rows[0])
+  })
 })
 
 
