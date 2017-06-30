@@ -65,7 +65,7 @@ describe('Get / ', function(){
   // })
 
   describe('GET /api/v1/foods/:id', function(){
-    this.timeout(10000);
+    this.timeout(100000);
     beforeEach(function(done) {
       Food.createFood("Milk", 80)
       .then(function() { done() });
@@ -91,7 +91,7 @@ describe('Get / ', function(){
         var name = data.rows[0].name
         var calories = data.rows[0].calories
         var created_at = data.rows[0].created_at
-        ourRequest.get('/api/v1/foods'+id, function(error, response){
+        ourRequest.get('/api/v1/foods/'+id, function(error, response){
           if(error){done(error)}
 
           var parsedFood = JSON.parse(response.body)
