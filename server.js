@@ -1,6 +1,9 @@
+var Food = require("./lib/models/food")
+
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
+
 
 
 app.set('port', process.env.PORT || 3000)
@@ -17,10 +20,13 @@ app.get('/', function(request, response){
 })
 
 app.get('/api/v1/foods', function(request, response) {
-  var foods = app.locals.foods
-
-  // if(!message){ return response.sendStatus(404) }
-    response.json(foods)
+  Food.allFoods()
+  .then(function(data){
+    if(data.rowCount == 0){
+      return response.sendStatus(404)
+    }
+    response.json(data.rows)
+  })
 })
 
 app.get('/api/v1/foods/:id', function(request, response){
