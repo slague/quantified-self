@@ -78,9 +78,6 @@ describe('server', function (){
           assert.equal(parsedFoods.length, 1)
         done()
       })
-    })
-  })
-})
 
   describe('GET /api/v1/foods/:id', function(){
 
