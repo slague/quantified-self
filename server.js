@@ -36,8 +36,8 @@ app.get('/api/v1/foods/:id', function(request, response){
 })
 
 app.post('/api/v1/foods', function(request, response){
-  var name = request.body.name
-  var calories = request.body.calories
+  var name = request.query.name
+  var calories = request.query.calories
 
   if(name && calories){
     Food.createFood(name, calories)
