@@ -135,5 +135,33 @@ describe('server', function (){
         })
       })
     })
+    it('it must have a name, it returns 422 without a name', function(done){
+      var newFood = {calories: 100}
+
+      this.request.post('api/v1/foods', {form: newFood}, function(error, response){
+        if (error) {done(error)}
+        Food.find(2)
+        .then(function(data){
+
+          assert.equal(response.statusCode, 422)
+          assert.equal(data.rowCount, 0)
+          done()
+        })
+      })
+    })
+
+    it('it must have calories, it returns 422 without calories', function(done){
+      var newFood = {name: 'Chicken'}
+      this.request.post('api/v1/foods', {form: newFood}, function(error, response){
+        if (error) {done(error)}
+        Food.find(2)
+        .then(function(data){
+
+          assert.equal(response.statusCode, 422)
+          assert.equal(data.rowCount, 0)
+          done()
+        })
+      })
+    })
   })
 })
