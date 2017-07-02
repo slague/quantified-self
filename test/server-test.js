@@ -113,4 +113,27 @@ describe('server', function (){
       })
     })
   })
+  describe('POST /api/v1/foods', function(){
+    this.timeout(10000000);
+    it('it receives and stores data', function(done) {
+      var newFood = { name: "Pizza", calories: 350 }
+
+      this.request.post('/api/v1/foods', {form: newFood}, function(error, response){
+        if (error) { done(error) }
+
+        Food.find(2)
+        .then(function(data){
+
+          var addedFood = data.rows[0]
+          assert.equal(response.statusCode, 201)
+          assert.equal(addedFood.name, newFood.name)
+          assert.equal(addedFood.calories, newFood.calories)
+          assert.equal(addedFood.id, 2)
+          assert.include(response.body, newFood.calories)
+          assert.include(response.body, newFood.name)
+          done()
+        })
+      })
+    })
+  })
 })

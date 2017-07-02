@@ -1,15 +1,13 @@
 var Food = require("./lib/models/food")
-
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
-
-app.set('port', process.env.PORT || 3000)
-
-app.locals.title = 'Quantified Self'
+var pry = require('pryjs')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+app.set('port', process.env.PORT || 3000)
+app.locals.title = 'Quantified Self'
 
 
 app.get('/', function(request, response){
@@ -35,6 +33,26 @@ app.get('/api/v1/foods/:id', function(request, response){
     }
     response.json(data.rows[0])
   })
+})
+
+app.post('/api/v1/foods', function(request, response){
+  var name = request.body.name
+  var calories = request.body.calories
+
+  if(name && calories){
+    Food.createFood(name, calories)
+    .then(function(data){
+      Food.allFoods().then(function(data){
+        return response.status(201).json(data)
+      })
+    })
+  }
+    if(!name){
+      return response.status(422).send({ error: "A food item must have a name"})
+    }
+    if(!calories){
+      return response.status(422).send({ error: "A food item must have calories"})
+    }
 })
 
 if(!module.parent){
