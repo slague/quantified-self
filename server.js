@@ -36,8 +36,11 @@ app.get('/api/v1/foods/:id', function(request, response){
 })
 
 app.post('/api/v1/foods', function(request, response){
-  var name = request.query.name
-  var calories = request.query.calories
+  // NEEDS HELP! request.query allows for function to work in postman, but fails tests
+  // request.body allows tests to pass, but does not work in postman!
+
+  var name = request.body.name
+  var calories = request.body.calories
 
   if(name && calories){
     Food.createFood(name, calories)
@@ -53,6 +56,65 @@ app.post('/api/v1/foods', function(request, response){
     if(!calories){
       return response.status(422).send({ error: "A food item must have calories"})
     }
+})
+
+app.put('/api/v1/foods/:id', function(request, response){
+  // NEEDS HELP! request.query allows for function to work in postman, but fails tests
+  // request.body allows tests to pass, but does not work in postman!
+  var id = request.params.id
+  var name = request.body.name
+  var calories = request.body.calories
+
+  Food.find(id)
+  .then(function(data){
+    if(data.rowCount == 0) {
+      return response.sendStatus(404)
+    }
+
+    if(name && calories){
+      Food.updateAll(id, name, calories)
+      .then(function(data){
+        Food.allFoods().then(function(data){
+          return response.status(201).json(data)
+        })
+      })
+    }
+
+    if(!calories){
+      Food.updateName(id, name)
+      .then(function(data){
+        Food.allFoods().then(function(data){
+          return response.status(201).json(data)
+        })
+      })
+    }
+
+    if(!name){
+      Food.updateCalories(id, calories)
+      .then(function(data){
+        Food.allFoods().then(function(data){
+          return response.status(201).json(data)
+        })
+      })
+    }
+  })
+})
+
+app.delete('/api/v1/foods/:id', function(request, response){
+  var id = request.params.id
+
+  Food.find(id)
+  .then(function(data){
+    if(data.rowCount == 0) {
+      return response.sendStatus(404)
+    }
+    Food.deleteFood(id)
+    .then(function(data){
+      Food.allFoods().then(function(data){
+        return response.status(201).json(data)
+      })
+    })
+  })
 })
 
 if(!module.parent){
