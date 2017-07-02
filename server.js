@@ -111,7 +111,7 @@ app.delete('/api/v1/foods/:id', function(request, response){
     Food.deleteFood(id)
     .then(function(data){
       Food.allFoods().then(function(data){
-        return response.status(201).json(data)
+        return response.status(200).json(data)
       })
     })
   })

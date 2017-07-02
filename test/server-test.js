@@ -163,8 +163,6 @@ describe('server', function (){
   })
 
   describe('PUT /api/v1/foods/:id', function(){
-    this.timeout(100000);
-
     it('updates an existing record with an new/edited name', function(done){
 
       var editFood = {name: "Chocolate Milk"}
@@ -185,7 +183,6 @@ describe('server', function (){
 
 
     it('updates an existing record with new/edited calories', function(done){
-
       var editFood = {calories: 150}
 
       this.request.put('api/v1/foods/1', {form: editFood}, function(error, response){
@@ -203,7 +200,6 @@ describe('server', function (){
     })
 
     it('updates an existing record with a new/edited name and new/edited calories', function(done){
-
       var editFood = {name: "Chocolate Milk", calories: 150}
 
       this.request.put('api/v1/foods/1', {form: editFood}, function(error, response){
@@ -228,5 +224,25 @@ describe('server', function (){
       })
     })
   })
-
+  describe('DELETE /api/v1/foods/:id', function(request, response){
+    this.timeout(100000);
+    it('removes an existing record', function(done){
+      this.request.delete('/api/v1/foods/1', function(error, response){
+        if(error){done(error)}
+        Food.allFoods()
+        .then(function(data){
+          assert.equal(response.statusCode, 200)
+          assert.equal(data.rowCount, 0)
+          done()
+        })
+      })
+    })
+    it('returns a 404 if the resource is not found', function(done){
+      this.request.delete('/api/v1/foods/1000', function(error, response){
+        if(error){done(error)}
+        assert.equal(response.statusCode, 404)
+        done()
+      })
+    })
+  })
 })
