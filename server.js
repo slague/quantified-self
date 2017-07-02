@@ -1,4 +1,5 @@
 var Food = require("./lib/models/food")
+var Meal = require("./lib/models/meal")
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
@@ -14,6 +15,7 @@ app.get('/', function(request, response){
   response.send(app.locals.title)
 })
 
+// FOOD API ENDPOINTS
 app.get('/api/v1/foods', function(request, response) {
   Food.allFoods()
   .then(function(data){
@@ -41,7 +43,6 @@ app.post('/api/v1/foods', function(request, response){
 
   var name = request.body.name
   var calories = request.body.calories
-
   if(name && calories){
     Food.createFood(name, calories)
     .then(function(data){
@@ -116,6 +117,19 @@ app.delete('/api/v1/foods/:id', function(request, response){
     })
   })
 })
+
+
+// MEALS API ENDPOINTS
+app.get('/api/v1/meals', function(request, response) {
+  Meal.allMeals()
+  .then(function(data){
+    if(data.rowCount == 0){
+      return response.sendStatus(404)
+    }
+    response.json(data.rows)
+  })
+})
+
 
 if(!module.parent){
   app.listen(app.get('port'), function() {
