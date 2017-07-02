@@ -121,14 +121,27 @@ app.delete('/api/v1/foods/:id', function(request, response){
 
 // MEALS API ENDPOINTS
 app.get('/api/v1/meals', function(request, response) {
-  Meal.allMeals()
+  var allMeals = Meal.allMeals()
   .then(function(data){
     if(data.rowCount == 0){
       return response.sendStatus(404)
     }
-    response.json(data.rows)
+      var meals = []
+
+      data.rows.forEach(function(row){
+        meals.push(completeMeal(row.id))
+      })
+      Promise.all(meals)
+      .then(function(data){
+        allMeals['foods'] = data.rows
+        response.json(datas)
+      })
   })
 })
+
+function completeMeal(id){
+  return Meal.foods(id)
+}
 
 
 if(!module.parent){

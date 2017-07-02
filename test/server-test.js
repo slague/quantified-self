@@ -295,8 +295,9 @@ describe('server', function (){
           var parsedMeal = parsedMeals[0]
 
           assert.isArray(parsedMeals)
-          assert.equal(parsedMeal.name, 'Breakfast')
           assert.equal(parsedMeals.length, 4)
+          assert.equal(parsedMeal.name, 'Breakfast')
+          assert.equal(parsedMeal.foods, [ {name: "Yogurt", calories: 155 }, {name:"Banana", calories: 100}])
         done()
         })
       })
