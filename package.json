@@ -26,9 +26,11 @@
   },
   "homepage": "https://github.com/slague/quantified-self#readme",
   "dependencies": {
+    "async": "^2.5.0",
     "body-parser": "^1.17.2",
     "express": "^4.15.3",
     "knex": "^0.13.0",
+    "nodemon": "^1.11.0",
     "pg": "^6.4.0",
     "pryjs": "^1.0.3",
     "test": "^0.6.0"

@@ -7,6 +7,7 @@ var pry = require('pryjs')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Quantified Self'
 
@@ -122,6 +123,7 @@ app.delete('/api/v1/foods/:id', function(request, response){
 // MEALS API ENDPOINTS
 app.get('/api/v1/meals', function(request, response) {
   Meal.allMeals()
+ // eval(pry.it)
   .then(function(data){
     if(data.rowCount == 0){
       return response.sendStatus(404)
