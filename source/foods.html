@@ -1,0 +1,48 @@
+<!doctype html>
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="main.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <script src="manageFoods.js"></script>
+  <title>Manage Comments</title>
+</head>
+<body>
+
+<div id='center'>
+    <h1 id='page-title'>Manage Foods</h1>
+
+    <div id="food-list">
+      <h3 id='title'>Foods</h3>
+        <table align='center'>
+          <tr>
+            <th>Food</th>
+            <th>Calories</th>
+            <th></th>
+          </tr>
+          <tr>
+            <td> Food blah blah blah...<!-- How to get the stuff from the db?? Food.allFoods().foreach...name --></td>
+            <td>1234<!-- How to get the stuff from the db?? Food.allFoods().foreach...calories --></td>
+            <td><button id='remove-food'>Remove</button></td>
+          </tr>
+          <tr>
+            <td> Food blah blah blah...<!-- How to get the stuff from the db?? Food.allFoods().foreach...name --></td>
+            <td>1234<!-- How to get the stuff from the db?? Food.allFoods().foreach...calories --></td>
+            <td id='table-button'><button id='remove-food'>Remove</button></td>
+          </tr>
+        </table>
+
+    </div>
+    <div id="add-food">
+      <h3 id='title'>Add New Food</h3>
+      <form id='new-food'>
+        <input type='text' id='foodName' placeholder="Name of food"/>
+        <input type='text' id='foodCalories' placeholder="Calories"/>
+        <button id="add_food_button">Add Food</button>
+      </form>
+    </div>
+</div>
+
+  <script src="https://code.jquery.com/jquery-2.2.3.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

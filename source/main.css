@@ -1,0 +1,48 @@
+#page-title {
+  text-align: center;
+  font-family: arial, sans-serif;
+  color: #112038;
+}
+#title{
+  font-family: arial, sans-serif;
+  color: #112038;
+}
+#center{
+  text-align: center;
+}
+#remove-food{
+  background-color: #d62222;
+  color: white;
+  border: white;
+}
+td#table-button{
+  border: white;
+}
+td#totals{
+  background-color: #bcbfc4;
+  text-align: right;
+}
+td {
+    border: solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    font-family: arial, sans-serif;
+    color: #39547f;
+    font: 10px;
+}
+
+th {
+  text-align: center;
+  font: 15px bold;
+  font-family: arial, sans-serif;
+  color: #112038;
+  background-color: #bcbfc4;
+
+}
+
+table {
+    align-self: center;
+    border-collapse: collapse;
+    /*width: 80%;*/
+    font-family: arial, sans-serif;
+}
