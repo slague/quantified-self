@@ -66,7 +66,6 @@ describe('server', function (){
     })
   })
 
-
   describe('Get / ', function(){
 
     it('should return a 200', function(done){
@@ -87,7 +86,6 @@ describe('server', function (){
   })
 
   describe('GET /api/v1/foods', function(){
-
     it('should return a 404 if the resource does not exist', function(done){
       this.request.get('/api/v1/hello', function(error, response){
       if(error){ done(error) }
@@ -109,12 +107,9 @@ describe('server', function (){
           assert.isArray(parsedFoods)
           assert.equal(parsedFood.name, 'Milk')
           assert.equal(parsedFood.calories, 80)
-          assert.equal(parsedFoods.length, 6)
+          assert.equal(parsedFoods.length, 1)
         done()
-        })
       })
-    })
-  })
 
   describe('GET /api/v1/foods/:id', function(){
     it('should return 404 if the resource is not found', function(done){
@@ -147,8 +142,6 @@ describe('server', function (){
     })
   })
   describe('POST /api/v1/foods', function(){
-    this.timeout(100000);
-
     it('it receives and stores data', function(done) {
       var newFood = { name: "Pizza", calories: 350 }
 
@@ -292,9 +285,7 @@ describe('server', function (){
       done()
       })
     })
-    it.skip('should return a list of all meals', function(done){
-
-      var ourRequest = this.request
+    it('should return a list of all meals', function(done){
       Meal.allMeals()
       .then(function(data){
 
