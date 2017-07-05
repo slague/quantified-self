@@ -7,6 +7,7 @@ var pry = require('pryjs')
 
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
 app.set('port', process.env.PORT || 3000)
 app.locals.title = 'Quantified Self'
 
@@ -126,6 +127,7 @@ app.get('/api/v1/meals', function(request, response) {
     if(data.rowCount == 0){
       return response.sendStatus(404)
     }
+    var meals = data.rows
     eval(pry.it)
     response.json(data.rows)
 

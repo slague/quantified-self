@@ -292,7 +292,7 @@ describe('server', function (){
       done()
       })
     })
-    it('should return a list of all meals', function(done){
+    it.skip('should return a list of all meals', function(done){
 
       var ourRequest = this.request
       Meal.allMeals()
