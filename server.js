@@ -1,5 +1,6 @@
 var Food = require("./lib/models/food")
 var Meal = require("./lib/models/meal")
+var MealFood = require("./lib/models/meal_foods")
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
@@ -133,31 +134,30 @@ app.get('/api/v1/meals', function(request, response) {
 
 app.get('/api/v1/meals/:id', function(request, response){
   var id = request.params.id
-  var name = request.body.name
+  // var name = request.body.name
   Meal.findMeal(id)
   .then(function(data){
       response.json(data)
   })
 })
 
-var 
-app.get('/api/v1/meals/:id', function(meal){
-  app.post('/api/v1/meals/'+meal.id+'/foods', function())
+app.post('/api/v1/meals/:id', function(request, response){
+    var id = request.params.id
+    var name = request.body.name
+
+    var ourFood = Food.findByName(name).then(function(data){
+      var ourFood = data.rows[0]
+      if(!ourFood){
+        return response.sendStatus(404)
+      }
+      MealFood.createMealFoodJoins(id, ourFood.id).then(function(data){
+        Meal.findMeal(id).then(function(data){
+          response.json(data)
+        })
+      })
+    })
 })
-// app.post('/api/v1/meals/:id', function(request, response){
-//   var id = request.params.id
-//   var foodName = request.body.name
-//   var foodCalories = request.body.calories
-//   Meal.allMeals()
-//   .then(function(data){
-//     Meal.addFoodToMeal()
-//     .then(function(data){
-//       Meal.allMeals().then(function(data){
-//         return response.status(201).json(data)
-//       })
-//     })
-//   })
-// })
+
 
 
 
