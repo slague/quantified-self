@@ -127,7 +127,6 @@ app.get('/api/v1/meals', function(request, response) {
     if(data.rowCount == 0){
       return response.sendStatus(404)
     }
-    // eval(pry.it)
     response.json(data)
   })
 })

@@ -61,7 +61,9 @@ describe('server', function (){
   afterEach(function(done) {
     Food.emptyFoodsTable().then(function() {
       Meal.emptyMealsTable().then(function(){
-        done()
+        MealFood.emptyMealFoodsTable().then(function(){
+          done()
+        })
       })
     })
   })
@@ -107,9 +109,12 @@ describe('server', function (){
           assert.isArray(parsedFoods)
           assert.equal(parsedFood.name, 'Milk')
           assert.equal(parsedFood.calories, 80)
-          assert.equal(parsedFoods.length, 1)
+          assert.equal(parsedFoods.length, 6)
         done()
+        })
       })
+    })
+  })
 
   describe('GET /api/v1/foods/:id', function(){
     it('should return 404 if the resource is not found', function(done){
@@ -141,6 +146,7 @@ describe('server', function (){
       })
     })
   })
+
   describe('POST /api/v1/foods', function(){
     it('it receives and stores data', function(done) {
       var newFood = { name: "Pizza", calories: 350 }
@@ -190,7 +196,7 @@ describe('server', function (){
       })
     })
   })
-
+//
   describe('PUT /api/v1/foods/:id', function(){
     it('updates an existing record with an new/edited name', function(done){
 
@@ -274,9 +280,8 @@ describe('server', function (){
       })
     })
   })
-
   describe('GET /api/v1/meals', function(){
-    this.timeout(10000000);
+    // this.timeout(10000000);
 
     it('should return a 404 if the resource does not exist', function(done){
       this.request.get('/api/v1/hello', function(error, response){
@@ -286,6 +291,7 @@ describe('server', function (){
       })
     })
     it('should return a list of all meals', function(done){
+      var ourRequest = this.request
       Meal.allMeals()
       .then(function(data){
 
@@ -293,11 +299,10 @@ describe('server', function (){
           if(error){done(error)}
           var parsedMeals = JSON.parse(response.body)
           var parsedMeal = parsedMeals[0]
-// eval(pry.it)
           assert.isArray(parsedMeals)
           assert.equal(parsedMeals.length, 4)
           assert.equal(parsedMeal.name, 'Breakfast')
-          assert.equal(parsedMeal.foods, [ {name: "Yogurt", calories: 155 }, {name:"Banana", calories: 100}])
+          assert.deepEqual(parsedMeal.foods, [ {name: "Milk", calories: 80 }, {name:"Pancake", calories: 175 }])
         done()
         })
       })
