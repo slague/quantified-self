@@ -60,12 +60,13 @@ describe('server', function (){
 
   afterEach(function(done) {
     Food.emptyFoodsTable().then(function() {
-      Meal.emptyMealsTable().then(function(){
+      Meal.emptyMealsTable().then(function() {
+        MealFood.emptyMealFoodsTable().then(function() {
         done()
+        })
       })
     })
   })
-
 
   describe('Get / ', function(){
 
@@ -147,8 +148,6 @@ describe('server', function (){
     })
   })
   describe('POST /api/v1/foods', function(){
-    this.timeout(100000);
-
     it('it receives and stores data', function(done) {
       var newFood = { name: "Pizza", calories: 350 }
 
@@ -292,21 +291,22 @@ describe('server', function (){
       done()
       })
     })
-    it.skip('should return a list of all meals', function(done){
-
-      var ourRequest = this.request
+  
+    it('should return a list of all meals', function(done){
+      ourRequest = this.request
       Meal.allMeals()
       .then(function(data){
 
         ourRequest.get('/api/v1/meals', function(error, response){
           if(error){done(error)}
+
           var parsedMeals = JSON.parse(response.body)
           var parsedMeal = parsedMeals[0]
-// eval(pry.it)
           assert.isArray(parsedMeals)
           assert.equal(parsedMeals.length, 4)
           assert.equal(parsedMeal.name, 'Breakfast')
-          assert.equal(parsedMeal.foods, [ {name: "Yogurt", calories: 155 }, {name:"Banana", calories: 100}])
+          assert.deepEqual(parsedMeal.foods, [ { name: 'Milk', calories: 80 },
+          { name: 'Pancake', calories: 175 } ])
         done()
         })
       })
