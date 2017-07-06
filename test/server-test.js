@@ -306,24 +306,20 @@ describe('server', function (){
     })
   })
   describe('POST /api/v1/meals/:id', function(){
-    this.timeout(100000);
+    // this.timeout(100000);
     it('it receives and stores data', function(done) {
-      // var ourRequest = this.request
-      // var addFood = {name: "Bread"}
-// eval(pry.it)
-      this.request.post('/api/v1/meals/1?name=bread', function(error, response){
-        if(error){done(error)}
-        Meal.findMeal(1)
-        .then(function(data){
-
-          eval(pry.it)
-          var addedFood = data.rows
-          assert.equal(response.statusCode, 201)
-          assert.equal(addedFood.foods.length, 3)
-          assert.equal(addedFood.foods.last.name, addFood.name)
-          done()
-          })
+    this.request.post('/api/v1/meals/1?foodName=bread', function(error, response){
+      if(error){done(error)}
+      Meal.findMeal(1)
+      .then(function(data){
+        var addedFood = data.foods[2]
+        assert.equal(response.statusCode, 201)
+        assert.equal(data.foods.length, 3)
+        assert.equal(addedFood.name, 'Bread')
+        assert.equal(addedFood.calories, 90)
+        done()
         })
+      })
     })
   })
 
