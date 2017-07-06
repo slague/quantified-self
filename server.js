@@ -1,5 +1,6 @@
 var Food = require("./lib/models/food")
 var Meal = require("./lib/models/meal")
+var MealFood = require("./lib/models/meal_foods")
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
@@ -127,10 +128,38 @@ app.get('/api/v1/meals', function(request, response) {
     if(data.rowCount == 0){
       return response.sendStatus(404)
     }
-    // eval(pry.it)
     response.json(data)
   })
 })
+
+app.get('/api/v1/meals/:id', function(request, response){
+  var id = request.params.id
+  // var name = request.body.name
+  Meal.findMeal(id)
+  .then(function(data){
+      response.json(data)
+  })
+})
+
+app.post('/api/v1/meals/:id', function(request, response){
+    var id = request.params.id
+    var name = request.body.name
+
+    var ourFood = Food.findByName(name).then(function(data){
+      var ourFood = data.rows[0]
+      if(!ourFood){
+        return response.sendStatus(404)
+      }
+      MealFood.createMealFoodJoins(id, ourFood.id).then(function(data){
+        Meal.findMeal(id).then(function(data){
+          response.json(data)
+        })
+      })
+    })
+})
+
+
+
 
 if(!module.parent){
   app.listen(app.get('port'), function() {
