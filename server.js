@@ -156,8 +156,19 @@ app.post('/api/v1/meals/:id', function(request, response){
   })
 })
 
+  app.delete('/api/v1/meals/:id', function(request, response){
+    var id = request.params.id
+    var name = request.query.name
 
-
+    var ourFood = Food.findByName(name).then(function(data){
+      var ourFood = data.rows[0]
+      MealFood.deleteMealFood(id, ourFood.id).then(function(data){
+        Meal.findMeal(id).then(function(data){
+          return response.status(200).json(data)
+        })
+      })
+    })
+  })
 
 if(!module.parent){
   app.listen(app.get('port'), function() {
