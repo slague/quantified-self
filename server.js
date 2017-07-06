@@ -131,6 +131,36 @@ app.get('/api/v1/meals', function(request, response) {
   })
 })
 
+app.get('/api/v1/meals/:id', function(request, response){
+  var id = request.params.id
+  var name = request.body.name
+  Meal.findMeal(id)
+  .then(function(data){
+      response.json(data)
+  })
+})
+
+var 
+app.get('/api/v1/meals/:id', function(meal){
+  app.post('/api/v1/meals/'+meal.id+'/foods', function())
+})
+// app.post('/api/v1/meals/:id', function(request, response){
+//   var id = request.params.id
+//   var foodName = request.body.name
+//   var foodCalories = request.body.calories
+//   Meal.allMeals()
+//   .then(function(data){
+//     Meal.addFoodToMeal()
+//     .then(function(data){
+//       Meal.allMeals().then(function(data){
+//         return response.status(201).json(data)
+//       })
+//     })
+//   })
+// })
+
+
+
 if(!module.parent){
   app.listen(app.get('port'), function() {
     console.log(`${app.locals.title} is running on ${app.get('port')}.`)

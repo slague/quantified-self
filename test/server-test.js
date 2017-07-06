@@ -260,7 +260,6 @@ describe('server', function (){
     })
   })
   describe('DELETE /api/v1/foods/:id', function(){
-    this.timeout(100000);
     it('removes an existing record', function(done){
       this.request.delete('/api/v1/foods/1', function(error, response){
         if(error){done(error)}
@@ -281,8 +280,6 @@ describe('server', function (){
     })
   })
   describe('GET /api/v1/meals', function(){
-    // this.timeout(10000000);
-
     it('should return a 404 if the resource does not exist', function(done){
       this.request.get('/api/v1/hello', function(error, response){
       if(error){ done(error) }
@@ -308,4 +305,36 @@ describe('server', function (){
       })
     })
   })
+  describe('POST /api/v1/meals/:id', function(){
+    this.timeout(100000);
+    it('it receives and stores data', function(done) {
+      // var ourRequest = this.request
+      // var id = request.params.id
+      // Meal.findMeal(id).then(function(data){
+      //   var id = data.rows[0].id
+      //   var name = data.rows[0].name
+      //   var foods = data.rows[0].foods
+
+        var newFood = {name: "Poptart", calories: 200}
+
+        this.request.post('/api/v1/meals/1', {form: newFood}, function(error, response){
+          if(error){done(error)}
+          Meal.allMeals()
+          .then(function(data){
+
+            eval(pry.it)
+            // var addedFood = data.rows
+            assert.equal(response.statusCode, 201)
+            assert.equal(data.rows[0].foods.length, 3)
+            done()
+          })
+        })
+      // })
+
+    })
+  })
+
+
+
+
 })
