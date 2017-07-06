@@ -134,29 +134,27 @@ app.get('/api/v1/meals', function(request, response) {
 
 app.get('/api/v1/meals/:id', function(request, response){
   var id = request.params.id
-  // var name = request.body.name
   Meal.findMeal(id)
   .then(function(data){
-      response.json(data)
+    response.json(data)
   })
 })
 
 app.post('/api/v1/meals/:id', function(request, response){
-    var id = request.params.id
-    var name = request.body.name
-
-    var ourFood = Food.findByName(name).then(function(data){
-      var ourFood = data.rows[0]
-      if(!ourFood){
-        return response.sendStatus(404)
-      }
-      MealFood.createMealFoodJoins(id, ourFood.id).then(function(data){
-        Meal.findMeal(id).then(function(data){
-          response.json(data)
-        })
+  var id = request.params.id
+  var foodName = request.query.foodName
+  var ourFood = Food.findByName(foodName).then(function(data){
+    var ourFood = data.rows[0]
+    if(!ourFood){
+      return response.sendStatus(404)
+    }
+    MealFood.createMealFoodJoins(id, ourFood.id).then(function(data){
+      Meal.findMeal(id).then(function(data){
+        return response.status(201).json(data)
       })
     })
   })
+})
 
   app.delete('/api/v1/meals/:id', function(request, response){
     var id = request.params.id

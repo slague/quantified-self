@@ -3,20 +3,20 @@ exports.seed = function(knex, Promise) {
   .then(function() {
     return Promise.all([
       knex.raw(
-        'INSERT INTO meals (id, name, created_at) VALUES (?, ?, ?)',
-        [1, "Breakfast", new Date]
+        'INSERT INTO meals (name, created_at) VALUES (?, ?)',
+        ["Breakfast", new Date]
       ),
       knex.raw(
-        'INSERT INTO meals (id, name, created_at) VALUES (?, ?, ?)',
-        [2, "Lunch", new Date]
+        'INSERT INTO meals (name, created_at) VALUES (?, ?)',
+        ["Lunch", new Date]
       ),
       knex.raw(
-        'INSERT INTO meals (id, name, created_at) VALUES (?, ?, ?)',
-        [3, "Dinner", new Date]
+        'INSERT INTO meals (name, created_at) VALUES (?, ?)',
+        ["Dinner", new Date]
       ),
       knex.raw(
-        'INSERT INTO meals (id, name, created_at) VALUES (?, ?, ?)',
-        [4, "Snack", new Date]
+        'INSERT INTO meals (name, created_at) VALUES (?, ?)',
+        ["Snack", new Date]
       )
     ]);
   });

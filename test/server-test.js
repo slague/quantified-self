@@ -136,7 +136,6 @@ describe('server', function (){
         var created_at = data.rows[0].created_at
         ourRequest.get('/api/v1/foods/'+id, function(error, response){
           if(error){done(error)}
-
           var parsedFood = JSON.parse(response.body)
           assert.equal(parsedFood.id, id)
           assert.equal(parsedFood.name, name)
@@ -149,15 +148,13 @@ describe('server', function (){
   })
 
   describe('POST /api/v1/foods', function(){
+
     it('it receives and stores data', function(done) {
       var newFood = { name: "Pizza", calories: 350 }
-
       this.request.post('/api/v1/foods', {form: newFood}, function(error, response){
         if (error) { done(error) }
-
         Food.find(7)
         .then(function(data){
-
           var addedFood = data.rows[0]
           assert.equal(response.statusCode, 201)
           assert.equal(addedFood.name, newFood.name)
@@ -169,27 +166,26 @@ describe('server', function (){
         })
       })
     })
+
     it('it must have a name, it returns 422 without a name', function(done){
       var newFood = {calories: 100}
-
       this.request.post('api/v1/foods', {form: newFood}, function(error, response){
         if (error) {done(error)}
         Food.find(7)
         .then(function(data){
-
           assert.equal(response.statusCode, 422)
           assert.equal(data.rowCount, 0)
           done()
         })
       })
     })
+
     it('it must have calories, it returns 422 without calories', function(done){
       var newFood = {name: 'Chicken'}
       this.request.post('api/v1/foods', {form: newFood}, function(error, response){
         if (error) {done(error)}
         Food.find(7)
         .then(function(data){
-
           assert.equal(response.statusCode, 422)
           assert.equal(data.rowCount, 0)
           done()
@@ -197,17 +193,14 @@ describe('server', function (){
       })
     })
   })
-//
+
   describe('PUT /api/v1/foods/:id', function(){
     it('updates an existing record with an new/edited name', function(done){
-
       var editFood = {name: "Chocolate Milk"}
-
       this.request.put('api/v1/foods/1', {form: editFood}, function(error, response){
         if (error) {done(error)}
         Food.find(1)
         .then(function(data){
-
           var updatedFood = data.rows[0]
           assert.equal(response.statusCode, 201)
           assert.equal(updatedFood.name, editFood.name)
@@ -225,7 +218,6 @@ describe('server', function (){
         if (error) {done(error)}
         Food.find(1)
         .then(function(data){
-
           var updatedFood = data.rows[0]
           assert.equal(response.statusCode, 201)
           assert.equal(updatedFood.calories, editFood.calories)
@@ -242,7 +234,6 @@ describe('server', function (){
         if (error) {done(error)}
         Food.find(1)
         .then(function(data){
-
           var updatedFood = data.rows[0]
           assert.equal(response.statusCode, 201)
           assert.equal(updatedFood.calories, editFood.calories)
@@ -293,19 +284,14 @@ describe('server', function (){
       var ourRequest = this.request
       Meal.allMeals()
       .then(function(data){
-
         ourRequest.get('/api/v1/meals', function(error, response){
           if(error){done(error)}
-
           var parsedMeals = JSON.parse(response.body)
           var parsedMeal = parsedMeals[0]
           assert.isArray(parsedMeals)
           assert.equal(parsedMeals.length, 4)
           assert.equal(parsedMeal.name, 'Breakfast')
-
-
           assert.deepEqual(parsedMeal.foods, [ {name: "Milk", calories: 80 }, {name:"Pancake", calories: 175 }])
-
         done()
         })
       })
@@ -313,7 +299,7 @@ describe('server', function (){
   })
 
   describe('DELETE /api/v1/meals/:id', function(){
-    this.timeout(100000);
+    
     it('it removes an existing record', function(done) {      
       this.request.delete('/api/v1/meals/1?name=bread', function(error, response){
         if(error){done(error)}
@@ -323,8 +309,26 @@ describe('server', function (){
           assert.equal(response.statusCode, 200)
           assert.equal(meal.foods.length, 2)
           done()
-          })
         })
+      })
+    })
+  })
+        
+  describe('POST /api/v1/meals/:id', function(){
+    // this.timeout(100000);
+    it('it receives and stores data', function(done) {
+    this.request.post('/api/v1/meals/1?foodName=bread', function(error, response){
+      if(error){done(error)}
+      Meal.findMeal(1)
+      .then(function(data){
+        var addedFood = data.foods[2]
+        assert.equal(response.statusCode, 201)
+        assert.equal(data.foods.length, 3)
+        assert.equal(addedFood.name, 'Bread')
+        assert.equal(addedFood.calories, 90)
+        done()
+        })
+      })
     })
   })
 })
