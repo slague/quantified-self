@@ -312,4 +312,26 @@ describe('server', function (){
       })
     })
   })
+
+  describe('DELETE /api/v1/meals/:id', function(){
+    this.timeout(100000)
+    it('removes an existing record', function(done){
+      this.request.delete('/api/v1/meals/2', function(error, response){
+        if(error){done(error)}
+        Meal.allMeals()
+        .then(function(data){
+          assert.equal(response.statusCode, 200)
+          assert.equal(data.length, 3)
+          done()
+        })
+      })
+    })
+    it('returns a 404 if the resource is not found', function(done){
+      this.request.delete('/api/v1/meals/1000', function(error, response){
+        if(error){done(error)}
+        assert.equal(response.statusCode, 404)
+        done()
+      })
+    })
+  })
 })

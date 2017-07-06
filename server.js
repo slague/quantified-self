@@ -127,7 +127,6 @@ app.get('/api/v1/meals', function(request, response) {
     if(data.rowCount == 0){
       return response.sendStatus(404)
     }
-    // eval(pry.it)
     response.json(data)
   })
 })
@@ -137,5 +136,21 @@ if(!module.parent){
     console.log(`${app.locals.title} is running on ${app.get('port')}.`)
   })
 }
+
+app.delete('/api/v1/meals/:id', function(request, response) {
+  var id = request.params.id
+  Meal.findMeal(id)
+  .then(function(data){
+    if(data.rowCount == 0) {
+      return response.sendStatus(404)
+    }
+    Meal.deleteMeal(id)
+    .then(function(data){
+      Meal.allMeals().then(function(data){
+        return response.status(200).json(data)
+      })
+    })
+  })
+})
 
 module.exports = app
