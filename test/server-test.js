@@ -155,14 +155,11 @@ this.timeout(100000);
         if (error) { done(error) }
         Food.find(7)
         .then(function(data){
-          // eval(pry.it)
           var addedFood = data.rows[0]
           assert.equal(response.statusCode, 201)
           assert.equal(addedFood.name, newFood.name)
           assert.equal(addedFood.calories, newFood.calories)
           assert.equal(addedFood.id, 7)
-          // assert.include(response.body, newFood.calories)
-          // assert.include(response.body, newFood.name)
           done()
         })
       })
