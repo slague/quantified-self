@@ -148,7 +148,6 @@ describe('server', function (){
   })
 
   describe('POST /api/v1/foods', function(){
-this.timeout(100000);
     it('it receives and stores data', function(done) {
       var newFood = { name: "Pizza", calories: 350 }
       this.request.post('/api/v1/foods', {form: newFood}, function(error, response){
