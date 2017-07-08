@@ -254,7 +254,7 @@ describe('server', function (){
         if(error){done(error)}
         Food.allFoods()
         .then(function(data){
-          assert.equal(response.statusCode, 200)
+          assert.equal(response.statusCode, 201)
           assert.equal(data.rowCount, 5)
           done()
         })
