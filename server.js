@@ -50,8 +50,9 @@ app.post('/api/v1/foods', function(request, response){
   if(name && calories){
     Food.createFood(name, calories)
     .then(function(data){
-      Food.allFoods().then(function(data){
-        return response.status(201).json(data)
+      Food.findByName(name).then(function(data){
+      // eval(pry.it)
+        return response.status(201).json(data.rows[0])
       })
     })
   }
