@@ -42,9 +42,6 @@ app.get('/api/v1/foods/:id', function(request, response){
 })
 
 app.post('/api/v1/foods', function(request, response){
-  // NEEDS HELP! request.query allows for function to work in postman, but fails tests
-  // request.body allows tests to pass, but does not work in postman!
-
   var name = request.body.name
   var calories = request.body.calories
   if(name && calories){
@@ -65,8 +62,6 @@ app.post('/api/v1/foods', function(request, response){
 })
 
 app.put('/api/v1/foods/:id', function(request, response){
-  // NEEDS HELP! request.query allows for function to work in postman, but fails tests
-  // request.body allows tests to pass, but does not work in postman!
   var id = request.params.id
   var name = request.body.name
   var calories = request.body.calories
