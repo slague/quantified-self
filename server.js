@@ -4,8 +4,10 @@ var MealFood = require("./lib/models/meal_foods")
 var express = require('express')
 var app = express()
 var bodyParser = require('body-parser')
+var cors = require('cors')
 var pry = require('pryjs')
 
+app.use(cors())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 

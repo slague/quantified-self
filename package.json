@@ -28,6 +28,7 @@
   "dependencies": {
     "async": "^2.5.0",
     "body-parser": "^1.17.2",
+    "cors": "^2.8.3",
     "express": "^4.15.3",
     "knex": "^0.13.0",
     "nodemon": "^1.11.0",
