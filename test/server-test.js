@@ -288,7 +288,7 @@ describe('server', function (){
           assert.isArray(parsedMeals)
           assert.equal(parsedMeals.length, 4)
           assert.equal(parsedMeal.name, 'Breakfast')
-          assert.deepEqual(parsedMeal.foods, [ {name: "Milk", calories: 80 }, {name:"Pancake", calories: 175 }])
+          assert.deepEqual(parsedMeal.foods, [ {id: 1, name: "Milk", calories: 80 }, {id: 5, name:"Pancake", calories: 175 }])
         done()
         })
       })
@@ -314,7 +314,7 @@ describe('server', function (){
   describe('POST /api/v1/meals/:id', function(){
     // this.timeout(100000);
     it('it receives and stores data', function(done) {
-    this.request.post('/api/v1/meals/1?foodName=bread', function(error, response){
+    this.request.post('/api/v1/meals/1?food_id=6', function(error, response){
       if(error){done(error)}
       Meal.findMeal(1)
       .then(function(data){

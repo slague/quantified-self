@@ -140,13 +140,13 @@ app.get('/api/v1/meals/:id', function(request, response){
 
 app.post('/api/v1/meals/:id', function(request, response){
   var id = request.params.id
-  var foodName = request.query.foodName
-  var ourFood = Food.findByName(foodName).then(function(data){
+  var food_id = request.query.food_id
+  var ourFood = Food.find(food_id).then(function(data){
     var ourFood = data.rows[0]
     if(!ourFood){
       return response.sendStatus(404)
     }
-    MealFood.createMealFoodJoins(id, ourFood.id).then(function(data){
+    MealFood.createMealFoodJoins(id, food_id).then(function(data){
       Meal.findMeal(id).then(function(data){
         return response.status(201).json(data)
       })
