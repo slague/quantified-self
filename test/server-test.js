@@ -298,7 +298,7 @@ describe('server', function (){
   describe('DELETE /api/v1/meals/:id', function(){
 
     it('it removes an existing record', function(done) {
-      this.request.delete('/api/v1/meals/1?name=bread', function(error, response){
+      this.request.delete('/api/v1/meals/1?food_id=6', function(error, response){
         if(error){done(error)}
         Meal.findMeal(1)
         .then(function(data){
