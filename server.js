@@ -48,7 +48,6 @@ app.post('/api/v1/foods', function(request, response){
     Food.createFood(name, calories)
     .then(function(data){
       Food.findByName(name).then(function(data){
-      // eval(pry.it)
         return response.status(201).json(data.rows[0])
       })
     })
