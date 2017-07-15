@@ -16,7 +16,7 @@ Navigate to http://127.0.0.1:3000
 
 Visit the production site here:
 
-Base Url: https://quantified-self-1701.herokuapp.com/
+Base Url: https://quantified-self-1701.herokuapp.com
 
 API Endpoints:
 
@@ -25,7 +25,7 @@ API Endpoints:
 
   Get a single Food GET `/api/v1/foods/:id`
 
-  Create a Food POST `api/v1/foods`
+  Create a Food POST `/api/v1/foods`
   + body: {name: nameOfFood, calories: numberOfCalories}
 
   Update a Food `/api/v1/foods/:id`
